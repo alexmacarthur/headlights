@@ -10,7 +10,7 @@ const App: Component = () => {
       <div class="flex-1 flex flex-col justify-center">
         <div>
           <h1 class="text-2xl md:text-4xl text-center mb-10">
-            View HTTP Response Headers
+            View an HTTP Request's Response Headers
           </h1>
 
           <ResponseHeadersForm />
