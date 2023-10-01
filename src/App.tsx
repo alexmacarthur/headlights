@@ -16,7 +16,7 @@ const App: Component = () => {
           <ResponseHeadersForm />
         </div>
       </div>
-      <footer class="text-center pt-12">
+      <footer class="text-center pt-20">
         A little tool from <a href="https://macarthur.me">Alex MacArthur</a>.
       </footer>
     </div>

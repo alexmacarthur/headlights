@@ -1,5 +1,5 @@
 import { Accessor, For } from "solid-js";
-import { ResponseInfo } from "./ResponseHeadersForm";
+import { ResponseInfo } from "../utils";
 
 function ResponseHeaders({
   responseInfo,

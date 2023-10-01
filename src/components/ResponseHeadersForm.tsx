@@ -1,22 +1,6 @@
 import { createSignal } from "solid-js";
 import ResponseHeaders from "./ResponseHeaders";
-
-const API_URL = "https://macarthur-me-api.vercel.app/api";
-
-export interface ResponseInfo {
-  headers: Array<Array<string>>;
-  status: number;
-}
-
-async function getHeaders(url: string): Promise<ResponseInfo> {
-  const response = await fetch(`${API_URL}/headers?url=${url}`);
-  const { headers, status } = await response.json();
-
-  return {
-    headers: Object.entries(headers),
-    status,
-  };
-}
+import { ResponseInfo, getHeaders, sendEvent } from "../utils";
 
 function isValidUrl(url: string): boolean {
   try {
@@ -27,8 +11,14 @@ function isValidUrl(url: string): boolean {
   }
 }
 
+function withHttp(url: string) {
+  return !/^https?:\/\//i.test(url) ? `https://${url}` : url;
+}
+
 function ResponseHeadersForm() {
-  const [responseInfo, setResponseInfo] = createSignal<ResponseInfo>(null);
+  const [responseInfo, setResponseInfo] = createSignal<ResponseInfo | null>(
+    null
+  );
   const [error, setError] = createSignal<string>("");
   const [loading, setLoading] = createSignal<boolean>(false);
 
@@ -39,7 +29,10 @@ function ResponseHeadersForm() {
 
     const form = event.target as HTMLFormElement;
     // @ts-ignore
-    const url = form.elements.url.value;
+
+    const url = withHttp(form.elements.url.value);
+
+    sendEvent("get_headers", { url });
 
     if (!isValidUrl(url)) {
       setError("That's not a valid URL!");
@@ -70,6 +63,7 @@ function ResponseHeadersForm() {
             id="url"
             placeholder="https://picperf.dev"
             class="flex-1"
+            required={true}
           />
           <input type="submit" value="See Headers" />
         </div>
