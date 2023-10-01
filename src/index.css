@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply text-zinc-700;
+  }
+}
+
+input {
+  @apply border-2 rounded-md py-2 px-4 outline-teal-500;
+}
+
+input[type="submit"] {
+  @apply bg-zinc-700 text-white border-zinc-700 hover:bg-zinc-600 cursor-pointer;
+}
+
+a {
+  @apply text-teal-600 hover:text-teal-500;
+}
+
+#root > div:before {
+  content: "";
+  display: block;
+  width: calc(100% - 1rem);
+  height: calc(100% - 1rem);
+  left: 0.5rem;
+  top: 0.5rem;
+  position: absolute;
+  z-index: -1;
+  @apply border-2 border-zinc-700;
+}
