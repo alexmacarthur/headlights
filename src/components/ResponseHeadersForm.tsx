@@ -27,15 +27,14 @@ function ResponseHeadersForm() {
 
     const form = event.target as HTMLFormElement;
     // @ts-ignore
-
     const url = withHttp(form.elements.url.value);
-
-    sendEvent("get_headers", { url });
 
     if (!isValidUrl(url)) {
       setError("That's not a valid URL!");
       return setLoading(false);
     }
+
+    sendEvent("get_headers", { url });
 
     try {
       const data = await getHeaders(url);
