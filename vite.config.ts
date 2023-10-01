@@ -3,6 +3,7 @@ import solidPlugin from "vite-plugin-solid";
 // import devtools from 'solid-devtools/vite';
 
 export default defineConfig({
+  base: "https://headlights.vercel.app",
   plugins: [
     /* 
     Uncomment the following line to enable solid-devtools.
