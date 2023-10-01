@@ -1,4 +1,4 @@
-import { createSignal } from "solid-js";
+import { Accessor, createSignal } from "solid-js";
 import ResponseHeaders from "./ResponseHeaders";
 import { ResponseInfo, getHeaders, sendEvent } from "../utils";
 
@@ -16,9 +16,7 @@ function withHttp(url: string) {
 }
 
 function ResponseHeadersForm() {
-  const [responseInfo, setResponseInfo] = createSignal<ResponseInfo | null>(
-    null
-  );
+  const [responseInfo, setResponseInfo] = createSignal<ResponseInfo>();
   const [error, setError] = createSignal<string>("");
   const [loading, setLoading] = createSignal<boolean>(false);
 
@@ -73,7 +71,11 @@ function ResponseHeadersForm() {
 
       {loading() && <p class="mt-8 text-center text-2xl">Loading...</p>}
 
-      {responseInfo() && <ResponseHeaders responseInfo={responseInfo} />}
+      {responseInfo() && (
+        <ResponseHeaders
+          responseInfo={responseInfo as Accessor<ResponseInfo>}
+        />
+      )}
     </div>
   );
 }
