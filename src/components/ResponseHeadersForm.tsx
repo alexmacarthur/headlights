@@ -1,4 +1,4 @@
-import { Accessor, createSignal } from "solid-js";
+import { Accessor, createSignal, onMount } from "solid-js";
 import ResponseHeaders from "./ResponseHeaders";
 import { ResponseInfo, getHeaders, sendEvent } from "../utils";
 
@@ -19,16 +19,20 @@ function ResponseHeadersForm() {
   const [responseInfo, setResponseInfo] = createSignal<ResponseInfo>();
   const [error, setError] = createSignal<string>("");
   const [loading, setLoading] = createSignal<boolean>(false);
+  let inputElement: any;
 
-  async function handleSubmit(event: Event) {
-    event.preventDefault();
-    setError("");
-    setLoading(true);
+  onMount(() => {
+    const url = new URL(window.location.href);
+    const params = new URLSearchParams(url.search);
+    const urlParam = params.get("url");
 
-    const form = event.target as HTMLFormElement;
-    // @ts-ignore
-    const url = withHttp(form.elements.url.value);
+    if (urlParam) {
+      processUrl(urlParam);
+      inputElement.value = urlParam;
+    }
+  });
 
+  async function processUrl(url: string) {
     if (!isValidUrl(url)) {
       setError("That's not a valid URL!");
       return setLoading(false);
@@ -47,6 +51,20 @@ function ResponseHeadersForm() {
     setLoading(false);
   }
 
+  async function handleSubmit(event: Event) {
+    event.preventDefault();
+    setError("");
+    setLoading(true);
+
+    const form = event.target as HTMLFormElement;
+    // @ts-ignore
+    const url = withHttp(form.elements.url.value);
+
+    window.history.pushState({}, "", `?url=${url}`);
+
+    processUrl(url);
+  }
+
   return (
     <div class="grid gap-6 max-w-xl mx-auto">
       <form class="px-2 md:px-6" onSubmit={handleSubmit}>
@@ -56,9 +74,10 @@ function ResponseHeadersForm() {
 
         <div class="flex flex-col md:flex-row gap-2 w-auto">
           <input
+            ref={inputElement}
             type="type"
             id="url"
-            placeholder="https://picperf.dev"
+            placeholder="https://picperf.io"
             class="flex-1"
             required={true}
           />

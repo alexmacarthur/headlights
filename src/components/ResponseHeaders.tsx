@@ -9,14 +9,14 @@ function ResponseHeaders({
   const { headers, status } = responseInfo();
 
   return (
-    <div class="list-none p-0 pt-6">
-      <h3 class="text-center text-xl mb-12 max-w-md mx-auto">
+    <div class="list-none p-0 pt-6 px-2 md:px-4">
+      <h3 class="text-center mb-12 max-w-md mx-auto text-lg md:text-xl">
         Response came back with a{" "}
         <span class="text-teal-600 font-bold">{status}</span> status code and
         the following headers:
       </h3>
 
-      <ul>
+      <ul class="mb-8">
         <li class="sm:grid-cols-[1fr_2fr] border-b hidden sm:grid">
           <div class="p-3 md:p-6 text-xl font-bold">Name</div>
           <div class="p-3 md:p-6 text-xl font-bold">Value</div>

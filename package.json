@@ -10,19 +10,20 @@
     "check": "tsc --noEmit",
     "format": "prettier --write ."
   },
+  "type": "module",
   "license": "MIT",
   "devDependencies": {
-    "autoprefixer": "^10.4.16",
-    "postcss": "^8.4.31",
-    "prettier": "^3.0.3",
-    "solid-devtools": "^0.27.3",
-    "tailwindcss": "^3.3.3",
-    "typescript": "^5.1.3",
-    "vite": "^4.3.9",
-    "vite-plugin-solid": "^2.7.0"
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "prettier": "^3.2.5",
+    "solid-devtools": "^0.30.1",
+    "tailwindcss": "^3.4.3",
+    "typescript": "^5.4.5",
+    "vite": "^5.2.11",
+    "vite-plugin-solid": "^2.10.2"
   },
   "dependencies": {
-    "@fontsource-variable/source-code-pro": "^5.0.9",
-    "solid-js": "^1.7.6"
+    "@fontsource-variable/source-code-pro": "^5.0.19",
+    "solid-js": "^1.8.17"
   }
 }
